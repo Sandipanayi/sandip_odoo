@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="courier_data" model="courier.courier">
+            <field name="name">Monu</field>
+            <!-- <field name="confirmed_date"></field>
+            <field name="courier_from_id"></field>
+            <field name="courier_to_id"></field>
+            <field name="routing_id "></field>
+            <field name="invoice_id"></field>
+            <field name="delivery_id"></field>
+            <field name="delivery_date"></field>
+            <field name="real_delivery_date"></field> -->
+        </record>
+    </data>
+</odoo>

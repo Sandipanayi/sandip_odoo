@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <report
+            id="courier_report_id"
+            model="courier.courier"
+            string="Courier Report"
+            name="courier.report_cou_id"
+            file="courier.report_cou_id"
+            report_type="qweb-pdf"
+            attachment_use="True"
+        />
+            <template id="report_cou_id">
+                <t t-call="web.html_container">
+                    <t t-foreach="docs" t-as="o">
+                        <t t-call="web.external_layout">
+                            <t t-set="address">
+                            <t t-esc="o.name"/><br></br>
+                            <t t-esc="o.courier_from_id.name"/><br></br>
+                            <t t-esc="o.routing_id.name"/><br></br>
+                            <t t-esc="o.carrier_id.name"/>
+                        </t>
+                            <div class="page">
+
+                        <div class="row">
+                        <div class="col-12">
+
+                <t t-if="not (env.context.get('proforma', False) or is_pro_forma)">
+
+                    <h2>Courier # <span t-field="o.nameseq"></span></h2>
+                </t>
+                <div class="row mt32 mb32" id="informations">
+
+                <div class="col-auto mw-100 mb-2">
+                <strong>Start Date:</strong>
+                <p class="m-0" t-field="o.confirmed_date"/>
+                </div>
+
+                <div class="col-auto mw-100 mb-2">
+                <strong>End Date:</strong>
+                <p class="m-0" t-field="o.real_delivery_date"/>
+                </div>
+
+                <div class="col-auto mw-100 mb-2">
+                <strong>Routing:</strong>
+                <p class="m-0" t-field="o.routing_id.name"/>
+                </div>
+
+                <div class="col-auto mw-100 mb-2">
+                <strong>Carrier:</strong>
+                <p class="m-0" t-field="o.carrier_id.name"/>
+                </div>
+                <div class="col-auto mw-100 mb-2">
+                <strong>State:</strong>
+                <p class="m-0" t-field="o.state"/>
+                </div>
+            </div>
+
+                <table class="table table-sm o_main_table">
+                    <thead>
+                        <tr>
+                        <!-- TODO: remove in master -->
+                        <t t-set="colspan" t-value="1"/>
+                        <th class="text-center">No</th>
+                        <th class="text-center">Name</th>
+                        <th class="text-center">From</th>
+                        <th class="text-left">To</th>
+                        <th class="text-left">Routing</th>
+                        <th class="text-center">carrier</th>
+                        <th class="text-center">Delivery Date</th>
+                        <th class="text-center">Actual Date</th>
+                        <th class="text-left">Total Price</th>
+
+                        </tr>
+                    </thead>
+
+                    <tbody class="sale_tbody">
+                        <tr>
+                            <td><span t-esc="o.nameseq"/></td>
+                            <td><span t-esc="o.name"/></td>
+                            <td><span t-esc="o.courier_from_id.name"/></td>
+                            <td><span t-esc="o.courier_to_id.name"/></td>
+                            <td><span t-esc="o.routing_id.name"/></td>
+                            <td><span t-esc="o.carrier_id.name"/></td>
+                            <td><span t-esc="o.delivery_date"/></td>
+                            <td><span t-esc="o.real_delivery_date"/></td>
+                            <td><span t-esc="o.total_price"/></td>
+                        </tr>
+
+                    </tbody>
+                </table>
+
+            <div id="total" class="row justify-content-end">
+                <div class="col-4">
+                    <table class="table table-sm">
+                        <tr class="border-black">
+                            <td><strong>Subtotal</strong></td>
+                            <td class="text-right">
+                                <span t-esc="o.total_price"/>
+                            </td>
+                        </tr>
+                        <tr class="border-black o_total">
+                            <td><strong>Total</strong></td>
+                            <td class="text-right">
+                                <span t-esc="o.total_price"/>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+
+                </div>
+                </div>
+
+                </div>
+                 </t>
+            </t>
+         </t>
+
+        </template>
+
+    </data>
+</odoo>

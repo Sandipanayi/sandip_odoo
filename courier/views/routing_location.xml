@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+        <record model="ir.ui.view" id="routinglocation_form_view">
+            <field name="name">Routing_location</field>
+            <field name="model">routing.location</field>
+            <field name="arch" type="xml">
+                <form string="routing location Form">
+                    <!-- <header>
+                        <button name="button_stud_done" string="done" class="oe_highlight" type="object"/>
+                        <field name="state" widget="statusbar" statusbar_visible="draft,done,cancel"/>
+                         <button name="print_stud_done" string="Print Report" class="oe_highlight" icon="fa-star" type="object"/>
+                         <button name="get_data" string="Get Data" type="object" class="oe_highlight"/>
+
+                    </header> -->
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name"/>
+                            </group>
+                            <group>
+                                <field name="code"/>
+                                <field name="sequence" widget="handle"/>
+                            </group>
+                       </group>
+                    </sheet>
+
+                </form>
+            </field>
+        </record>
+
+          <record id="views_routing_location_kanban" model="ir.ui.view">
+            <field name="name">kanban courier</field>
+            <field name="model">routing.location</field>
+            <field name="arch" type="xml">
+                <kanban class="o_kanban_mobile">
+                    <field name="name"/>
+                    <field name="code"/>
+
+                    <templates>
+                        <t t-name="kanban-box">
+                            <div t-attf-class="oe_kanban_global_click">
+                                <div class="row">
+                                </div>
+                                <div>
+                                    <strong>Name: </strong><t t-esc="record.name.value"/>
+                                </div>
+                                 <div>
+                                    <strong>Code: </strong><t t-esc="record.code.value"/>
+                                </div>
+
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+
+        <record id="routinglocation_search_view" model="ir.ui.view">
+            <field name="name">Routing location Search View</field>
+            <field name="model">routing.location</field>
+            <field name="arch" type="xml">
+                <search string="Search Courier">
+                    <field name="name"/>
+                    <field name="code"/>
+                <!-- <filter string="Male" name="male" domain="[('gender','=','male')]"
+                   help="Students with gender as Male"/>
+                <filter string="Female" name="female" domain="[('gender','=','female')]"
+                   help="Students with gender as Female"/>
+                <filter string="Others" name="others" domain="[('gender','=','others')]"
+                   help="Students with gender as Others"/> -->
+                <group expand="1" string="Group By">
+               <filter string="name" name="name" context="{'group_by':'name'}"/>
+               <filter string="code" name="code" context="{'group_by':'code'}"/>
+           </group>
+       </search>
+   </field>
+</record>
+
+<record id="pivot_routing_location_data" model="ir.ui.view">
+         <field name="name">routing.pivot</field>
+         <field name="model">routing.location</field>
+         <field name="arch" type="xml">
+             <pivot string="courier data" disable_linking="True">
+                 <field name="name" type="row"/>
+                 <field name="code" type="col"/>
+             </pivot>
+         </field>
+        </record>
+
+<record id="routing_location_report_graph" model="ir.ui.view">
+         <field name="name">routing Graph</field>
+         <field name="model">routing.location</field>
+         <field name="arch" type="xml">
+             <graph string="provider Graph">
+                 <field name="name"/>
+                 <field name="code" type="measure"/>
+
+             </graph>
+         </field>
+        </record>
+
+
+
+
+<!-- <record model="ir.ui.view" id="show_routinglocation_tree">
+
+                            <field name="name">RoutingLocation</field>
+                            <field name="model">routing.location</field>
+                            <field name="arch" type="xml">
+                            <tree string="records">
+                                <field name="name"/>
+                                <field name="code"/>
+                            </tree>
+                        </field>
+                    </record> -->
+
+
+        <record id="tree_rlocation_tree" model="ir.ui.view">
+
+        <field name="name">Routing Tree</field>
+
+        <field name="model">routing.location</field>
+
+        <field name="arch" type="xml">
+
+                <tree string="Weight/number ratio" editable="bottom">
+                        <field name="sequence" widget="handle"/>
+                        <field name="name"/>
+                        <field name="code"/>
+                </tree>
+
+        </field>
+
+</record>
+
+
+<record model="ir.actions.act_window" id="routinglocation_list_action">
+            <field name="name">Routing Location</field>
+            <field name="res_model">routing.location</field>
+            <field name="view_mode">tree,kanban,graph,search,pivot,form</field>
+            <field name="view_id" ref="tree_rlocation_tree"/>
+
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">Create the first Record
+                </p>
+            </field>
+        </record>
+
+
+
+
+        <menuitem id="Routinglocation_new" name="Routing Location" action="routinglocation_list_action" parent="Configartion_new"/>
+
+
+</odoo>

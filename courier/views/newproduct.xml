@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+<menuitem id="res_partner_menu_new_new"
+            name = "Products"
+            parent="Courier_new"
+            action="sale.product_template_action"
+            sequence="4" />
+</odoo>

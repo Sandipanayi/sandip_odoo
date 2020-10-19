@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+        <record model="ir.ui.view" id="productnew_form_view">
+            <field name="name">Product</field>
+            <field name="model">courier.product.lines</field>
+            <field name="arch" type="xml">
+                <form string="product Form">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="product_id"/>
+                            </group>
+                            <group>
+                                <field name="qty"/>
+                            </group>
+                            <group>
+                                <field name="total_weight" readonly="True"/>
+                             </group>
+                       </group>
+                    </sheet>
+
+                </form>
+            </field>
+        </record>
+
+
+
+<!-- <record model="ir.ui.view" id="product_carrier_tree">
+
+                            <field name="name">product</field>
+                            <field name="model">courier.product.line</field>
+                            <field name="arch" type="xml">
+                            <tree string="records">
+                                <field name="product_id"/>
+                                <field name="qty"/>
+                                <field name="total_weight" sum="Total"/>
+                            </tree>
+                        </field>
+                    </record> -->
+
+
+        <record id="tree_productedit_tree" model="ir.ui.view">
+
+        <field name="name">Product Tree</field>
+
+        <field name="model">courier.product.lines</field>
+
+        <field name="arch" type="xml">
+
+                <tree string="Weight/number ratio" editable="bottom">
+                        <field name="product_id"/>
+                        <field name="qty"/>
+                        <field name="total_weight" readonly="True" sum="total"/>
+                </tree>
+
+        </field>
+
+</record>
+
+            <record model="ir.actions.act_window" id="productnewnew_list_action">
+                <field name="name">product</field>
+                <field name="res_model">courier.product.lines</field>
+                <field name="view_mode">tree,form</field>
+                <field name="view_id" ref="tree_productedit_tree"/>
+
+                <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">Create the first Record
+                </p>
+            </field>
+        </record>
+
+        <!-- <menuitem id="productnewnew_new" name="Products" action="action_order_report_all" parent="Courier_new"/> -->
+
+
+
+</odoo>

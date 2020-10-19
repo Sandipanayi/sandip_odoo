@@ -1,0 +1,43 @@
+<odoo>
+    <data>
+        <record id="view_change_dest_location" model="ir.ui.view">
+        <field name="name">Change Destination Location</field>
+        <field name="model">changev.changev</field>
+        <field name="arch" type="xml">
+        <form string="Choose New Location">
+                <p class="oe_gray">
+                        Select new location
+                </p>
+                <group>
+                        <group>
+                                <field name="courier_from_id"/>
+                                <field name="courier_to_id"/>
+                        </group>
+                </group>
+                <footer>
+                        <button name="change_location"
+                                string="Update"
+                                type="object"
+                                class="btn-primary"/>
+                        <button string="Save" class="btn-default" special="cancel" />
+                </footer>
+        </form>
+        </field>
+        </record>
+
+        <record id="wizard_list_action_new" model="ir.actions.act_window">
+            <field name="name">Change Destination Location</field>
+            <field name="res_model">changev.changev</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="view_change_dest_location"/>
+            <field name="target">new</field>
+        </record>
+
+
+
+
+
+    </data>
+</odoo>
+

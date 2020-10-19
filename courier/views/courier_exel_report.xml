@@ -1,0 +1,13 @@
+<odoo>
+    <data>
+        <report
+            id="courier_report__exel_id"
+            model="courier.courier"
+            string="Courier Report xls"
+            name="courier.report_cou_id_xls"
+            file="courier.report_cou_id_xls"
+            report_type="xlsx"
+            attachment_use="False"
+        />
+    </data>
+</odoo>

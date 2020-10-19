@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+
+<record id="couriernew_reportnew_graph" model="ir.ui.view">
+         <field name="name">Courier Graph</field>
+         <field name="model">courier.courier</field>
+         <field name="arch" type="xml">
+             <graph string="courier Graph">
+                 <field name="name"/>
+                 <field name="confirmed_date"/>
+                 <field name="courier_from_id"/>
+                 <field name="courier_to_id"/>
+                 <field name="routing_id"/>
+                 <field name="invoice_id"/>
+                 <field name="delivery_id"/>
+                 <field name="delivery_date"/>
+                 <field name="total_price" type="measure"/>
+             </graph>
+         </field>
+        </record>
+
+
+        <record model="ir.actions.act_window" id="courier_garph_action">
+            <field name="name">courier</field>
+            <field name="res_model">courier.courier</field>
+            <field name="view_mode">search,graph</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">Create the first Record
+                </p>
+            </field>
+        </record>
+
+        <menuitem id="report_courier" name="Courier" action="courier_garph_action" parent="Reporting_new"/>
+</odoo>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+<menuitem id="res_partner_menu"
+            name = "Customer"
+            parent="Courier_new"
+            action="base.action_partner_form"
+            sequence="4" />
+
+</odoo>

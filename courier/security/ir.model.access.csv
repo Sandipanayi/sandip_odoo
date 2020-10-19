@@ -1,0 +1,12 @@
+id,name,model_id/id,group_id/id,perm_read,perm_write,perm_create,perm_unlink
+access_courier_courier,courier.courier,model_courier_courier,base.group_user,1,1,1,1
+access_routing_routing,routing.routing,model_routing_routing,base.group_user,1,1,1,1
+access_routing_location,routing.location,model_routing_location,base.group_user,1,1,1,1
+access_carrier_carrier,carrier.carrier,model_carrier_carrier,base.group_user,1,1,1,1
+access_carrier_provider,carrier.provider,model_carrier_provider,base.group_user,1,1,1,1
+access_carrier_lines,carrier.lines,model_carrier_lines,base.group_user,1,1,1,1
+access_courier_product_lines,courier.product.lines,model_courier_product_lines,base.group_user,1,1,1,1
+access_changev_changev,changev.changev,model_changev_changev,base.group_user,1,1,1,1
+access_wizardr_wizardr,wizardr.wizardr,model_wizardr_wizardr,base.group_user,1,1,1,1
+
+

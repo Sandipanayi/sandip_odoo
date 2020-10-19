@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <record model="ir.ui.view" id="courier_form_view">
+        <field name="name">Courier</field>
+        <field name="model">courier.courier</field>
+        <field name="arch" type="xml">
+            <form string="courier Form">
+                <header>
+                    <button name="button_draft" string="Draft" class="oe_highlight" type="object" attrs="{'invisible':['|',('state','in',['draft','confirm','cancel','print','invoice'])]}"/>
+                    <button name="button_confirm" string="Confirm" class="oe_highlight" type="object" attrs="{'invisible':['|',('state','in',['confirm','cancel','invoice','done'])]}"/>
+
+                    <button name="button_return" string="Return" class="oe_highlight" type="object" attrs="{'invisible':['|',('state','in',['draft','confirm','cancel','print'])]}"/>
+
+                    <button name="button_cancel" string="Cancel" class="oe_highlight" type="object" attrs="{'invisible':['|',('state','in',['draft','confirm','cancel','invoice'])]}"/>
+
+                    <button name="button_done" string="Done" class="oe_highlight" type="object" attrs="{'invisible':['|',('state','in',['draft','cancel','invoice','delivery'])]}"/>
+
+                    <button name="%(courier.wizard_list_action_new)d" context="{'default_courier_from_id':courier_from_id,'default_courier_to_id':courier_to_id}" string="Change Location" class="oe_highlight" type="action" attrs="{'invisible':['|',('invoice_count','=',1),('state','in',['draft','cancel','return','invoice','delivery','done'])]}"/>
+
+
+                    <button name="button_invoice" string="Create Invoice" class="oe_highlight" type="object" attrs="{'invisible':['|',('invoice_count', '=', 1),('state','in',['draft','cancel','return','invoice','delivery','done'])]}"/>
+
+                    <button name="button_resettodraft" string="Reset to Darft" class="oe_highlight" type="object" attrs="{'invisible':['|',('state','in',['draft','confirm','done','return','invoice','delivery'])]}"/>
+
+                    <button name="button_delivery" state='paid' string="Create delivery" class="oe_highlight" type="object" attrs="{'invisible':['|','|',('delivery_count','=',1),('invoice_count', '=', 0),('state','in',['draft','cancel','return','done','delivery'])]}"/>
+
+                    <button name="button_sendemail" string="Send By Email" class="oe_highlight" type="object" attrs="{'invisible':['|',('state','in',['draft','confirm','cancel','invoice','delivery','done'])]}"/>
+
+                    <button name="button_printreport" string="Print Report" class="oe_highlight" type="object" attrs="{'invisible':['|',('state','in',['draft','cancel','invoice'])]}"/>
+
+                    <field name="state" widget="statusbar" statusbar_visible="draft,confirm,return,done,cancel,invoice,delivery"/>
+                </header>
+                    <sheet>
+                            <div class="oe_button_box" name="button_box">
+                                <button name="search_invoice"
+                                    type="object"
+                                    class="oe_stat_button"
+                                    icon="fa-pencil-square-o"
+                                    attrs="{'invisible': [('invoice_count', '=', 0)]}">
+                                    <field name="invoice_count" widget="statinfo" string="Invoices"/>
+                                </button>
+                                 <button name="action_view_mo_delivery"
+                                    type="object"
+                                    class="oe_stat_button"
+                                    icon="fa-truck"
+                                    attrs="{'invisible': [('delivery_count', '=', 0)]}">
+                                    <field name="delivery_count" widget="statinfo" string="Delivery"/>
+                                </button>
+                            </div>
+                        <div class="oe_title">
+                            <h1>
+                                <field name="nameseq" readonly="1"/>
+                            </h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="name" attrs="{'readonly':['|',('state','in',['confirm','done','cancel','invoice','delivery','print'])]}"/>
+                                <field name="confirmed_date" attrs="{'readonly':['|',('state','in',['confirm','done','cancel','invoice','delivery','print'])]}"/>
+                                <field name="courier_from_id" attrs="{'readonly':['|',('state','in',['confirm','done','cancel','invoice','delivery','print'])]}"/>
+                                <field name="real_delivery_date" attrs="{'readonly':['|',('state','in',['confirm','done','cancel','invoice','delivery','print'])]}"/>
+                                <field name="invoice_id" attrs="{'readonly':['|',('state','in',['confirm','done','cancel','invoice','delivery','print'])]}"/>
+                                <field name="routing_id" attrs="{'readonly':['|',('state','in',['confirm','done','cancel','invoice','delivery','print'])]}"/>
+                            </group>
+                            <group>
+                                <field name="user_id" attrs="{'readonly':['|',('state','in',['confirm','done','cancel','invoice','delivery','print'])]}"/>
+                                <field name="delivery_id" readonly="1" attrs="{'readonly':['|',('state','in',['confirm','done','cancel','invoice','delivery','print'])]}"/>
+                                <field name="courier_to_id" attrs="{'readonly':['|',('state','in',['confirm','done','cancel','invoice','delivery','print'])]}"/>
+                                <field name="carrier_id" attrs="{'readonly':['|',('state','in',['confirm','done','cancel','invoice','delivery','print'])]}"/>
+                                <field name="delivery_date" readonly="1" attrs="{'readonly':['|',('state','in',['confirm','done','cancel','invoice','delivery','print'])]}"/>
+                                <field name="total_price" readonly="1" attrs="{'readonly':['|',('state','in',['confirm','done','cancel','invoice','delivery','print'])]}"/>
+                            </group>
+                       </group>
+                         <notebook>
+                                <page string="Product">
+                                    <field name="courier_product_line_ids" nolabel="1"  attrs="{'readonly':['|',('state','in',['confirm','done','cancel','invoice','delivery','print'])]}"/>
+                                </page>
+                                 <page string="Carrier Lines">
+                                    <field name="carrier_lines_ids" nolabel="1" readonly="True"/>
+                                </page>
+                            </notebook>
+                            <group>
+                                <field name="notes" nolabel="1" placeholder="Enter your review about products" attrs="{'readonly':['|',('state','in',['confirm','done','cancel','invoice','delivery','print'])]}
+                                "/>
+                            </group>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                         <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+         <record id="views_courier_kanban" model="ir.ui.view">
+            <field name="name">kanban courier</field>
+            <field name="model">courier.courier</field>
+            <field name="arch" type="xml">
+                <kanban class="o_kanban_mobile">
+                    <field name="name"/>
+                    <field name="confirmed_date"/>
+                    <field name="courier_from_id"/>
+                    <field name="courier_to_id"/>
+                    <field name="routing_id"/>
+                    <field name="invoice_id"/>
+                    <field name="delivery_id"/>
+                    <field name="delivery_date"/>
+                    <field name="total_price"/>
+                    <templates>
+                        <t t-name="kanban-box">
+                            <div t-attf-class="oe_kanban_global_click">
+                                <div class="row">
+                                </div>
+                                <div>
+                                    <strong>Name: </strong><t t-esc="record.name.value"/>
+                                </div>
+                                 <div>
+                                    <strong>Confirm_date: </strong><t t-esc="record.confirmed_date.value"/>
+                                </div>
+
+                                 <div>
+                                    <strong>invoice id: </strong><t t-esc="record.invoice_id.value"/>
+                                </div>
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+    <record id="courier_search_view" model="ir.ui.view">
+        <field name="name">Courier Search View</field>
+        <field name="model">courier.courier</field>
+        <field name="arch" type="xml">
+            <search string="Search Courier">
+                <field name="name"/>
+                <field name="confirmed_date"/>
+                <field name="courier_from_id"/>
+                <group expand="1" string="Group By">
+               <filter string="invoice_id" name="invoice_id" context="{'group_by':'invoice_id'}"/>
+           </group>
+       </search>
+   </field>
+</record>
+
+<record id="pivot_courier_new_data" model="ir.ui.view">
+         <field name="name">couriernew.pivot</field>
+         <field name="model">courier.courier</field>
+         <field name="arch" type="xml">
+             <pivot string="courier data" disable_linking="True">
+                 <field name="name" type="row"/>
+                 <field name="confirmed_date" type="col"/>
+                 <field name="courier_from_id"/>
+                 <field name="courier_to_id"/>
+                 <field name="routing_id"/>
+                 <field name="invoice_id"/>
+                 <field name="delivery_id"/>
+                 <field name="delivery_date"/>
+                 <field name="total_price" type="measure"/>
+             </pivot>
+         </field>
+        </record>
+
+<record id="couriernew_report_graph" model="ir.ui.view">
+         <field name="name">Courier Graph</field>
+         <field name="model">courier.courier</field>
+         <field name="arch" type="xml">
+             <graph string="courier Graph">
+                 <field name="name"/>
+                 <field name="confirmed_date"/>
+                 <field name="courier_from_id"/>
+                 <field name="courier_to_id"/>
+                 <field name="routing_id"/>
+                 <field name="invoice_id"/>
+                 <field name="delivery_id"/>
+                 <field name="delivery_date"/>
+                 <field name="total_price"/>
+             </graph>
+         </field>
+        </record>
+
+<record model="ir.ui.view" id="show_courier_tree">
+
+                            <field name="name">Courier</field>
+                            <field name="model">courier.courier</field>
+                            <field name="arch" type="xml">
+                            <tree string="records">
+                                <field name="nameseq"/>
+                                <field name="name"/>
+                                <field name="courier_from_id"/>
+                                <field name="courier_to_id"/>
+                                <field name="invoice_id"/>
+                                <field name="routing_id"/>
+                                <field name="delivery_date"/>
+                                <field name="total_price" sum="Total"/>
+                            </tree>
+                        </field>
+                    </record>
+
+<record model="ir.actions.act_window" id="courier_list_action">
+            <field name="name">Courier</field>
+            <field name="res_model">courier.courier</field>
+            <field name="view_mode">tree,kanban,search,graph,pivot,form</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">Create the first Record
+                </p>
+            </field>
+        </record>
+
+        <menuitem id="Courier_menu" name="Courier Management"/>
+        <menuitem id="Courier_new" name="Couriers" action="courier_list_action" parent="Courier_menu"/>
+        <menuitem id="Courier_new_news" name="Couriers" action="courier_list_action" parent="Courier_new"/>
+        <menuitem id="Reporting_new" name="Reporting" action="courier_list_action" parent="Courier_menu"/>
+        <menuitem id="Configartion_new" name="Configartion" action="courier_list_action" parent="Courier_menu"/>
+        <menuitem id="report_courier" name="courier" action="courier_list_action" parent="Reporting_new"/>
+
+
+</odoo>

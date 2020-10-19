@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+
+ 	<menuitem id="Courier_menu" name="Courier Management"/>
+
+    <menuitem id="Courier_new" name="Couriers" action="courier_list_action" parent="Courier_menu"/>
+
+    <menuitem id="Courier_new_new" name="Couriers" action="courier_list_action" parent="Courier_new"/>
+
+    <menuitem id="Configartionn_new" name="Configartion" action="courier_list_action" parent="Courier_menu"/>
+
+     <menuitem id="carrier_new" name="Routing" action="routing_list_action" parent="Courier_new"/>
+    
+        <menuitem id="carriernewww_new" name="Carrier" action="carrier_list_action" parent="Configartionn_new"/>
+
+        <menuitem id="carrierlines_new" name="Carrier lines" action="carrierlines_list_action" parent="Configartionn_new"/>
+
+        <menuitem id="carrierprovider_new" name="provider lines" action="providerlines_list_action" parent="Configartionn_new"/>
+    
+<menuitem id="Routinglocation_new" name="Routing Location" action="routinglocation_list_action" parent="Configartionn_new"/>
+    
+
+
+    
+    
+
+</odoo>
+    

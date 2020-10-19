@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+         <record id="new_mail_email_id" model="mail.template">
+            <field name="name">EMAIL TEMPLATE NEW G</field>
+            <field name="model_id" ref="courier.model_courier_courier"/>
+            <field name="auto_delete" eval="True"/>
+            <field name="email_from">${object.courier_from_id.name}</field>
+            <field name="email_to">${object.name}</field>
+            <field name="report_template" ref="courier_report_id"/>
+            <field name="subject"> Courier ${object.nameseq}</field>
+            <field name="body_html" type="html">
+            <div style="margin: 0px; padding: 0px;">
+                <p style="margin: 0px; padding: 0px; font-size: 13px;">
+                    Dear <strong>${object.name}</strong>
+                    <br></br>
+                    This is References id of your product <strong>${object.nameseq}</strong>
+                    <br></br>
+                    Do not hesitate to contact us if you have any question.
+                </p>
+                </div>
+            </field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+        <record model="ir.ui.view" id="carrierlines_form_view">
+            <field name="name">Carrier lines</field>
+            <field name="model">carrier.lines</field>
+            <field name="arch" type="xml">
+                <form string="carrierLines">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="provider_id"/>
+                                <field name="from_location_id"/>
+                                <field name="distance"/>
+                                <field name="days"/>
+                            </group>
+                            <group>
+                                <field name="medium"/>
+                                <field name="to_location_id"/>
+                                <field name="price"/>
+                                <field name="weight"/>
+                            </group>
+                       </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+         <record id="views_carrierlines_kanban" model="ir.ui.view">
+            <field name="name">kanban courier</field>
+            <field name="model">carrier.lines</field>
+            <field name="arch" type="xml">
+                <kanban class="o_kanban_mobile">
+                    <field name="provider_id"/>
+                    <field name="from_location_id"/>
+                    <field name="to_location_id"/>
+                    <field name="distance"/>
+                    <field name="days"/>
+                    <field name="price"/>
+                    <field name="medium"/>
+                    <field name="weight"/>
+
+                    <templates>
+                        <t t-name="kanban-box">
+                            <div t-attf-class="oe_kanban_global_click">
+                                <div class="row">
+                                </div>
+                                <div>
+                                    <strong>Provider id: </strong><t t-esc="record.provider_id.value"/>
+                                </div>
+                                 <div>
+                                    <strong>Days: </strong><t t-esc="record.days.value"/>
+                                </div>
+                                 <div>
+                                    <strong>Price: </strong><t t-esc="record.price.value"/>
+                                </div>
+                                 <div>
+                                    <strong>Weight: </strong><t t-esc="record.weight.value"/>
+                                </div>
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+
+        <record id="carrierlines_search_view" model="ir.ui.view">
+            <field name="name">carrierlines Search View</field>
+            <field name="model">carrier.lines</field>
+            <field name="arch" type="xml">
+                <search string="Search carrier">
+                    <field name="provider_id"/>
+                    <field name="from_location_id"/>
+                    <field name="to_location_id"/>
+                    <field name="distance"/>
+                    <field name="days"/>
+                    <field name="price"/>
+                    <field name="weight"/>
+                    <field name="medium"/>
+                <!-- <filter string="Male" name="male" domain="[('gender','=','male')]"
+                   help="Students with gender as Male"/>
+                <filter string="Female" name="female" domain="[('gender','=','female')]"
+                   help="Students with gender as Female"/>
+                <filter string="Others" name="others" domain="[('gender','=','others')]"
+                   help="Students with gender as Others"/> -->
+                <group expand="1" string="Group By">
+               <filter string="price" name="price" context="{'group_by':'price'}"/>
+               <filter string="weight" name="weight" context="{'group_by':'weight'}"/>
+           </group>
+       </search>
+   </field>
+</record>
+
+
+<record id="pivot_carrierlines_data" model="ir.ui.view">
+         <field name="name">carrierlines.pivot</field>
+         <field name="model">carrier.lines</field>
+         <field name="arch" type="xml">
+             <pivot string="carrier data" disable_linking="True">
+                 <field name="provider_id" type="row"/>
+                 <field name="from_location_id" type="col"/>
+                 <field name="to_location_id" type="measure"/>
+                 <field name="distance"/>
+                 <field name="days"/>
+                 <field name="price"/>
+                 <field name="weight"/>
+                 <field name="medium"/>
+             </pivot>
+         </field>
+        </record>
+
+<record id="carrier_lines_report_graph" model="ir.ui.view">
+         <field name="name">Carrier_lines Graph</field>
+         <field name="model">carrier.lines</field>
+         <field name="arch" type="xml">
+             <graph string="Carrier_lines Graph">
+                 <field name="provider_id"/>
+                 <field name="from_location_id" type="measure"/>
+                 <field name="to_location_id"/>
+                 <field name="distance"/>
+                 <field name="days"/>
+                 <field name="price"/>
+                 <field name="weight"/>
+                 <field name="medium"/>
+             </graph>
+         </field>
+        </record>
+
+<record model="ir.ui.view" id="show_carrierline_tree">
+
+                            <field name="name">Carrier</field>
+                            <field name="model">carrier.lines</field>
+                            <field name="arch" type="xml">
+                                <tree string="records">
+
+                                <field name="provider_id"/>
+                                <field name="from_location_id"/>
+                                <field name="to_location_id"/>
+
+                            </tree>
+                        </field>
+                    </record>
+
+
+
+<record model="ir.actions.act_window" id="carrierlines_list_action">
+            <field name="name">Carrier Lines</field>
+            <field name="res_model">carrier.lines</field>
+            <field name="view_mode">tree,kanban,graph,search,pivot,form</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">Create the first Record
+                </p>
+            </field>
+        </record>
+
+
+
+
+        <menuitem id="carrierlines_new" name="Carrier lines" action="carrierlines_list_action" parent="Configartion_new"/>
+
+
+
+
+</odoo>

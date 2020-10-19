@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+<record id="pivot_courier_new_new_data" model="ir.ui.view">
+         <field name="name">couriernew.pivot</field>
+         <field name="model">courier.courier</field>
+         <field name="arch" type="xml">
+             <pivot string="courier data" disable_linking="True">
+                 <field name="name" type="row"/>
+                 <field name="confirmed_date" type="col"/>
+                 <field name="courier_from_id"/>
+                 <field name="courier_to_id"/>
+                 <field name="routing_id"/>
+                 <field name="invoice_id"/>
+                 <field name="delivery_id"/>
+                 <field name="delivery_date"/>
+                 <field name="total_price" type="measure"/>
+             </pivot>
+         </field>
+        </record>
+
+         <record model="ir.actions.act_window" id="courier_garphnew_action">
+            <field name="name">courier</field>
+            <field name="res_model">courier.courier</field>
+            <field name="view_mode">search,pivot</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">Create the first Record
+                </p>
+            </field>
+        </record>
+
+
+        <menuitem id="report_courier_pivot" name="Courier Analysis" action="courier_garphnew_action" parent="Reporting_new"/>
+
+</odoo>

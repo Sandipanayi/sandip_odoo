@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+        <record model="ir.ui.view" id="routing_form_view">
+            <field name="name">routing</field>
+            <field name="model">routing.routing</field>
+            <field name="arch" type="xml">
+                <form string="routing Form">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name"/>
+                                <field name="from_location_id"/>
+                                <field name="distance"/>
+                                <field name="days"/>
+                            </group>
+                            <group>
+                                <field name="path_id"/>
+                                <field name="to_location_id"/>
+                                <field name="price"/>
+                            </group>
+                            <group string="Provider Lines">
+                                <notebook>
+                                    <page string="Provider">
+                                        <field name="provider_lines_ids" nolabel="1" readonly="True"/>
+                                    </page>
+                                </notebook>
+                            </group>
+                       </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+         <record id="views_routing_kanban" model="ir.ui.view">
+            <field name="name">kanban courier</field>
+            <field name="model">routing.routing</field>
+            <field name="arch" type="xml">
+                <kanban class="o_kanban_mobile">
+                    <field name="name"/>
+                    <field name="from_location_id"/>
+                    <field name="to_location_id"/>
+                    <field name="distance"/>
+                    <field name="days"/>
+                    <field name="price"/>
+                    <field name="path_id"/>
+                    <field name="provider_lines_ids"/>
+                    <templates>
+                        <t t-name="kanban-box">
+                            <div t-attf-class="oe_kanban_global_click">
+                                <div class="row">
+
+                                </div>
+                                <div>
+                                    <strong>Name: </strong><t t-esc="record.name.value"/>
+                                </div>
+                                 <div>
+                                    <strong>From Location Id: </strong><t t-esc="record.from_location_id.value"/>
+                                </div>
+                                 <div>
+                                    <strong>To Location id: </strong><t t-esc="record.to_location_id.value"/>
+                                </div>
+                                 <div>
+                                    <strong>Distance: </strong><t t-esc="record.distance.value"/>
+                                </div>
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+
+         <record id="routing_search_view" model="ir.ui.view">
+            <field name="name">Routing Search View</field>
+            <field name="model">routing.routing</field>
+            <field name="arch" type="xml">
+                <search string="Search Courier">
+                    <field name="name"/>
+                    <field name="from_location_id"/>
+                    <field name="to_location_id"/>
+                    <field name="distance"/>
+                    <field name="days"/>
+                    <field name="price"/>
+                    <field name="path_id"/>
+                <!-- <filter string="Male" name="male" domain="[('gender','=','male')]"
+                   help="Students with gender as Male"/>
+                <filter string="Female" name="female" domain="[('gender','=','female')]"
+                   help="Students with gender as Female"/>
+                <filter string="Others" name="others" domain="[('gender','=','others')]"
+                   help="Students with gender as Others"/> -->
+                <group expand="1" string="Group By">
+               <filter string="from_location_id" name="from_location_id" context="{'group_by':'from_location_id'}"/>
+               <filter string="to_location_id" name="to_location_id" context="{'group_by':'to_location_id'}"/>
+           </group>
+       </search>
+   </field>
+</record>
+
+<record id="pivot_routing_data" model="ir.ui.view">
+         <field name="name">routing.pivot</field>
+         <field name="model">routing.routing</field>
+         <field name="arch" type="xml">
+             <pivot string="courier data" disable_linking="True">
+                 <field name="name" type="row"/>
+                 <field name="from_location_id" type="col"/>
+                 <field name="to_location_id"/>
+                 <field name="distance"/>
+                 <field name="days"/>
+                 <field name="price"/>
+                 <field name="path_id"/>
+             </pivot>
+         </field>
+        </record>
+
+<record id="routingnew_report_graph" model="ir.ui.view">
+         <field name="name">routing Graph</field>
+         <field name="model">routing.routing</field>
+         <field name="arch" type="xml">
+             <graph string="routing Graph">
+                 <field name="name"/>
+                 <field name="from_location_id"/>
+                 <field name="to_location_id"/>
+                 <field name="distance"/>
+                 <field name="days"/>
+                 <field name="path_id"/>
+                 <field name="price" type="measure"/>
+
+             </graph>
+         </field>
+        </record>
+
+
+
+
+<record model="ir.ui.view" id="show_routingter_tree">
+
+                            <field name="name">routing</field>
+                            <field name="model">routing.routing</field>
+                            <field name="arch" type="xml">
+                            <tree string="records">
+                                <field name="name"/>
+                                <field name="from_location_id"/>
+                                <field name="to_location_id"/>
+                                <field name="distance"/>
+                                <field name="days"/>
+                                <field name="price"/>
+
+                            </tree>
+                        </field>
+                    </record>
+
+
+
+<record model="ir.actions.act_window" id="routing_list_action">
+            <field name="name">Routing</field>
+            <field name="res_model">routing.routing</field>
+            <field name="view_mode">tree,kanban,graph,search,pivot,form</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">Create the first Record
+                </p>
+            </field>
+        </record>
+
+        <menuitem id="routings_new" name="Routing" action="routing_list_action" parent="Courier_new"/>
+
+        <!-- <menuitem id="carrier_new" name="Routing" action="routing_list_action" parent="Courier_new"/>
+     -->
+
+
+
+</odoo>
